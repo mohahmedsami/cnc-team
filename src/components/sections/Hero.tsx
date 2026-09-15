@@ -4,65 +4,46 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden border-b border-white/10 bg-slate-950"
+      className="relative overflow-hidden border-b border-white/10 bg-[#0d0d0f]"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
-      <div aria-hidden="true" className="pointer-events-none absolute -top-32 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full bg-sky-500/20 blur-3xl" />
+      <div aria-hidden="true" className="pointer-events-none absolute -top-40 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-sky-500/15 blur-3xl" />
 
-      <div className="relative mx-auto flex max-w-7xl flex-col items-center px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8">
-        <span className="rounded-full border border-sky-400/30 bg-sky-500/10 px-4 py-1.5 text-xs font-medium tracking-wide text-sky-300">
-          تصنيع دقيق • تحكم رقمي • جودة عالية
-        </span>
+      <div className="relative mx-auto flex max-w-4xl flex-col items-center px-4 py-28 text-center sm:px-6 sm:py-36 lg:px-8">
+        <span aria-hidden="true" className="h-3 w-3 rotate-45 bg-sky-400 shadow-[0_0_18px_0_rgba(56,189,248,0.6)]" />
 
-        <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
-          نصمّم وننتج قطعك بدقة{" "}
-          <span className="bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
-            لا حدود لها
-          </span>
+        <h1 className="mt-8 text-5xl font-bold leading-[1.15] tracking-tight text-white sm:text-6xl lg:text-7xl">
+          نبني المنتجات الرقمية التي تنمّي أعمالك
         </h1>
 
-        <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-400">
-          {site.name} — شريكك في التصنيع بالتحكم الرقمي. من التصميم إلى التسليم،
-          نجمع الخبرة والآلات الحديثة لنحوّل أفكارك إلى منتجات ملموسة بجودة فائقة.
+        <p className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-slate-400">
+          {site.name} — فريق هندسي يحوّل الأفكار المعقدة إلى مواقع ومنصات SaaS
+          وتطبيقات سريعة، واضحة، وقابلة للنمو.
         </p>
 
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+        <div className="mt-12 flex flex-col justify-center gap-4 sm:flex-row">
           <a
             href="#services"
-            className="rounded-lg bg-sky-500 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-sky-400"
+            className="rounded-lg bg-sky-500 px-8 py-3.5 text-sm font-semibold text-white shadow-[0_10px_30px_-10px_rgba(14,165,233,0.6)] transition-all hover:-translate-y-0.5 hover:bg-sky-400"
           >
-            اكتشف خدماتنا
+            ابدأ مشروعك
           </a>
           <a
             href="#contact"
-            className="rounded-lg border border-white/20 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/5"
+            className="rounded-lg border border-white/20 px-8 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-white/5"
           >
-            تواصل معنا
+            تعرّف على خدماتنا
           </a>
         </div>
 
-        <dl className="mt-16 grid w-full max-w-3xl grid-cols-1 gap-6 sm:grid-cols-3">
+        <dl className="mx-auto mt-20 grid w-full max-w-3xl grid-cols-1 gap-y-10 border-t border-white/10 pt-12 text-center sm:grid-cols-3 sm:gap-y-0" dir="ltr">
           {[
-            { value: "+10", label: "سنوات خبرة" },
-            { value: "+500", label: "مشروع منجز" },
-            { value: "±0.01", label: "دقة التصنيع (ملم)" },
+            { value: "01", label: "فريق هندسي" },
+            { value: "06", label: "مجالات رقمية" },
+            { value: "24/7", label: "منتجات تعمل" },
           ].map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-xl border border-white/10 bg-white/[0.03] px-6 py-5"
-            >
-              <dt className="text-sm text-slate-400">{stat.label}</dt>
-              <dd className="mt-1 text-3xl font-bold text-white" dir="ltr">
-                {stat.value}
-              </dd>
+            <div key={stat.label} className="px-4 sm:border-l sm:border-white/10 sm:first:border-l-0 sm:first:pl-0">
+              <dd className="font-mono text-3xl font-bold text-sky-300 tabular-nums sm:text-4xl">{stat.value}</dd>
+              <dt className="mt-2 text-sm text-slate-400">{stat.label}</dt>
             </div>
           ))}
         </dl>

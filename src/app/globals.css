@@ -1,22 +1,400 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
+  --background: #0d0d0f;
+  --foreground: #ececec;
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 1.5rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --font-sans: var(--font-ibm-plex), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
-@layer base {
-  html {
-    scroll-behavior: smooth;
-  }
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-ibm-plex), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  overscroll-behavior-x: none;
+}
 
-  body {
-    background: var(--background);
-    color: var(--foreground);
+video {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
+}
+
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.cnc-display {
+  font-family: var(--font-ibm-plex), ui-sans-serif, sans-serif;
+  font-weight: 400;
+}
+
+.cnc-display em {
+  color: rgba(255, 255, 255, 0.46);
+  font-style: italic;
+}
+
+.cnc-3d-heading {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.22),
+    0 3px 0 rgba(255, 255, 255, 0.08),
+    0 14px 28px rgba(0, 0, 0, 0.72),
+    0 24px 50px rgba(56, 189, 248, 0.12);
+}
+
+.cnc-mark {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid rgba(125, 211, 252, 0.9);
+  border-radius: 999px;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.5);
+}
+
+.cnc-orb {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(70px);
+}
+
+.cnc-orb-one {
+  width: 30rem;
+  height: 30rem;
+  top: 12%;
+  left: 18%;
+  background: rgba(38, 92, 120, 0.16);
+}
+
+.cnc-orb-two {
+  width: 24rem;
+  height: 24rem;
+  right: 8%;
+  bottom: 10%;
+  background: rgba(88, 52, 108, 0.12);
+}
+
+.cnc-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.025), transparent 62%);
+}
+
+.cnc-glow-top {
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.04), transparent 66%);
+}
+
+.cnc-code-field {
+  position: absolute;
+  inset: 12% auto auto 10%;
+  color: rgba(255, 255, 255, 0.28);
+  font-family: var(--font-jetbrains), monospace;
+  font-size: clamp(1rem, 2.3vw, 2.1rem);
+  line-height: 1.7;
+  transform: rotate(-4deg);
+  white-space: nowrap;
+}
+
+.cnc-code-field b { color: rgba(125, 211, 252, 0.72); font-weight: 500; }
+.cnc-code-field i { color: rgba(255, 255, 255, 0.62); font-style: normal; }
+
+.cnc-live-code {
+  position: absolute;
+  inset: 10% auto auto 7%;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-family: var(--font-jetbrains), monospace;
+  font-size: clamp(0.58rem, 1.35vw, 1rem);
+  line-height: 1.9;
+  white-space: pre;
+  text-align: left;
+}
+
+.cnc-code-line {
+  display: block;
+  min-height: 1.8em;
+}
+
+.cnc-code-number {
+  display: inline-block;
+  width: 2.2rem;
+  margin-right: 0.9rem;
+  color: rgba(255, 255, 255, 0.2);
+  user-select: none;
+}
+
+.cnc-code-caret {
+  display: inline-block;
+  width: 0.5em;
+  height: 1.15em;
+  margin-left: 0.15em;
+  vertical-align: -0.2em;
+  background: #7dd3fc;
+  animation: caret-blink 1s step-end infinite;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+p {
+  overflow-wrap: break-word;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid theme("colors.sky.500");
+  outline-offset: 2px;
+}
+
+.shell-container {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .shell-container {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shell-container {
+    padding-inline: 2rem;
+  }
+}
+
+@keyframes glow-sweep {
+  0% {
+    transform: translateX(-125%);
+  }
+  100% {
+    transform: translateX(340%);
+  }
+}
+
+.animate-glow-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  width: 55%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5) 50%, transparent);
+  box-shadow:
+    0 0 6px 0 rgba(255, 255, 255, 0.4),
+    0 0 18px 2px rgba(255, 255, 255, 0.16);
+  animation: glow-sweep 7s ease-in-out infinite;
+}
+
+.animate-glow-line-reverse {
+  animation-direction: reverse;
+}
+
+@keyframes caret-blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.caret-blink {
+  animation: caret-blink 1.06s step-end infinite;
+}
+
+@keyframes particle-fall {
+  0% {
+    transform: translate3d(0, -6vh, 0);
+  }
+  50% {
+    transform: translate3d(calc(var(--drift, 24px) * 0.5), 51vh, 0);
+  }
+  100% {
+    transform: translate3d(var(--drift, 24px), 108vh, 0);
+  }
+}
+
+.animate-particle-fall {
+  animation-name: particle-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-particle-fall {
+    animation: none;
+    display: none;
+  }
+  .animate-glow-line {
+    animation: none;
+    opacity: 0;
+  }
+  .caret-blink {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@keyframes marquee-ltr {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee-ltr {
+  width: max-content;
+  animation: marquee-ltr 48s linear infinite;
+  will-change: transform;
+}
+
+.chip-3d {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 3px rgba(0, 0, 0, 0.7),
+    0 10px 18px rgba(0, 0, 0, 0.5);
+  transition: transform 0.25s ease, scale 0.25s ease, text-shadow 0.25s ease, color 0.25s ease, opacity 0.25s ease, filter 0.25s ease;
+}
+
+.chip-3d img {
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.65)) drop-shadow(0 12px 20px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes logo-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+.animate-logo-float {
+  animation: logo-float 5.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-marquee-ltr .chip-3d:active {
+  transform: scale(0.94);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-logo-float {
+    animation: none;
+  }
+  .animate-rain-fall {
+    animation: none;
+  }
+}
+
+@keyframes rain-fall {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-rain-fall {
+  animation: rain-fall linear infinite;
+  will-change: transform;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes cnc-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-cnc-gradient {
+  background: linear-gradient(90deg, #e2e8f0, #38bdf8, #22d3ee, #e2e8f0);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: cnc-gradient 4s ease infinite;
+}
+
+.code-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-scroll::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+  border-radius: 9999px;
+}
+
+.code-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #6b7280;
+}
+
+.code-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }

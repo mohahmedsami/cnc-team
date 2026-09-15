@@ -2,7 +2,7 @@ import { site } from "@/data/site";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/10 bg-slate-950">
+    <footer className="border-t border-white/10 bg-[#0a0a0c]">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col items-start justify-between gap-8 md:flex-row">
           <div>
@@ -13,7 +13,7 @@ export default function Footer() {
               <span className="font-mono text-base font-semibold text-white">{site.name}</span>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-6 text-slate-400">
-              شريككم في التصنيع الدقيق. حلول CNC مخصصة للصناعة بجودة موثوقة وتسليم في الموعد.
+              فريق برمجي يبني مواقع ومنصات SaaS وتطبيقات تساعد الأعمال على النمو.
             </p>
           </div>
 
@@ -21,9 +21,9 @@ export default function Footer() {
             <div>
               <h3 className="mb-3 font-semibold text-white">روابط سريعة</h3>
               <ul className="space-y-2 text-slate-400">
-                <li>الرئيسية</li>
-                <li>خدماتنا</li>
-                <li>لماذا نحن</li>
+                <li><a href="#home" className="transition-colors hover:text-sky-300">الرئيسية</a></li>
+                <li><a href="#services" className="transition-colors hover:text-sky-300">خدماتنا</a></li>
+                <li><a href="#why-us" className="transition-colors hover:text-sky-300">لماذا نحن</a></li>
               </ul>
             </div>
             <div>

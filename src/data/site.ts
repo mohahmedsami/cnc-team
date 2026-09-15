@@ -1,14 +1,7 @@
 export const site = {
-  name: "Taklonjia CNC",
-  tagline: "دقة التصنيع بإتقان",
-  phone: "+212 600 00 00 00",
-  email: "contact@taklonjia-cnc.com",
-  address: "المنطقة الصناعية، الدار البيضاء، المغرب",
+  name: "CNC TEAM",
+  tagline: "We turn ideas into digital products",
+  phone: "+213 666 347 056",
+  email: "hello@cnc-team.dev",
+  address: "الجزائر، الجزائر",
 } as const;
-
-export const navLinks = [
-  { label: "الرئيسية", href: "#home" },
-  { label: "خدماتنا", href: "#services" },
-  { label: "لماذا نحن", href: "#why-us" },
-  { label: "اتصل بنا", href: "#contact" },
-] as const;

@@ -1,21 +1,41 @@
-import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import type { Metadata, Viewport } from "next";
+import { IBM_Plex_Sans_Arabic, JetBrains_Mono } from "next/font/google";
+import ClientShell from "@/components/ClientShell";
 import "./globals.css";
 
+const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
+  variable: "--font-ibm-plex",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["arabic", "latin"],
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  weight: ["500", "700"],
+  subsets: ["latin"],
+});
+
 export const metadata: Metadata = {
-  title: "Taklonjia CNC | التصنيع بالتحكم الرقمي",
-  description:
-    "موقع شركة Taklonjia CNC — تصنيع دقيق بالتحكم الرقمي، تصميم هندسي، وإنتاج بالكميات.",
+  title: "Taklonjia CNC",
+  description: "موقع شركة Taklonjia CNC",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ar" dir="rtl" className="h-full antialiased">
-      <body className="flex min-h-full flex-col bg-slate-950 font-sans text-slate-50">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+    <html
+      lang="ar"
+      dir="rtl"
+      className={`${ibmPlexSansArabic.variable} ${jetBrainsMono.variable} h-full scroll-smooth antialiased`}
+    >
+      <body className="flex min-h-full flex-col bg-[#0d0d0f] text-slate-200">
+        <ClientShell>{children}</ClientShell>
       </body>
     </html>
   );
