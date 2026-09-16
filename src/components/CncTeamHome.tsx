@@ -79,7 +79,6 @@ export default function CncTeamHome() {
           src="/cnc-team/videos/cnc-team-hero.mp4"
           muted
           autoPlay
-          loop
           playsInline
           preload="metadata"
           aria-hidden="true"
