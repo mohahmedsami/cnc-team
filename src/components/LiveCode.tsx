@@ -41,13 +41,14 @@ export default function LiveCode() {
     const finished = column >= current.length;
     const previous = current[column - 1] ?? "";
     const typoPoint = line === 1 && column === 18 && !mistake;
+    const wobble = [0, 18, -10, 26, -6, 34, 8, -16, 22, -12][(line * 7 + column) % 10];
     const delay = mistake
-      ? 220
+      ? 240
       : finished
-        ? (line === LINES.length - 1 ? 2600 : line === 0 ? 900 : 560)
+        ? (line === LINES.length - 1 ? 3200 : line === 0 ? 1100 : 620 + (line % 2) * 130)
         : typoPoint
-          ? 180
-          : /[({[=;:,]/.test(previous) ? 110 : /\s/.test(current[column] ?? "") ? 18 : 32;
+          ? 200
+          : /[({[=;:,]/.test(previous) ? 130 + wobble : /\s/.test(current[column] ?? "") ? 55 + wobble : 78 + wobble;
 
     const timer = window.setTimeout(() => {
       if (mistake) {
@@ -64,8 +65,7 @@ export default function LiveCode() {
           setColumn(0);
         }
       } else {
-        const burst = current[column] === " " ? 2 : 1;
-        setColumn((value) => Math.min(current.length, value + burst));
+        setColumn((value) => Math.min(current.length, value + 1));
       }
     }, delay);
 
