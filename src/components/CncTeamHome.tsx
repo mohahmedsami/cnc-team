@@ -29,6 +29,36 @@ const services = [
 
 type Locale = "en" | "fr" | "ar";
 
+const upcomingProjects: Array<{ name: string; blurb: Record<Locale, string>; status: Record<Locale, string> }> = [
+  {
+    name: "CADbench",
+    blurb: {
+      en: "A web-based viewer and review tool for 3D models.",
+      fr: "Un visualiseur web pour revoir des modèles 3D.",
+      ar: "أداة ويب لعرض ومراجعة النماذج ثلاثية الأبعاد.",
+    },
+    status: { en: "In design", fr: "En conception", ar: "في التصميم" },
+  },
+  {
+    name: "Sprint OS",
+    blurb: {
+      en: "Internal tooling to run client projects with total clarity.",
+      fr: "Des outils internes pour piloter les projets clients.",
+      ar: "أدوات داخلية لإدارة مشاريع العملاء بوضوح.",
+    },
+    status: { en: "In research", fr: "En étude", ar: "في الدراسة" },
+  },
+  {
+    name: "Atlas SDK",
+    blurb: {
+      en: "A lightweight payments SDK for Algerian businesses.",
+      fr: "Un SDK de paiement léger pour les entreprises algériennes.",
+      ar: "حزمة دفع خفيفة للشركات الجزائرية.",
+    },
+    status: { en: "Planned", fr: "Planifié", ar: "مخطط" },
+  },
+];
+
 const labels = {
   en: {
     approach: "Approach", services: "Services", contact: "Contact", kicker: "Independent software team · Algeria",
@@ -38,6 +68,7 @@ const labels = {
     processText: "Every project starts with a question. We make the next step obvious, then build it properly.", work: "Work with us ↗",
     what: "What we do", start: "Start a conversation", idea: "Have an idea? Let’s build it.",
     explanation: "We understand the problem first, set clear priorities, then build a focused version that can be tested and improved with confidence.",
+    upcoming: "Upcoming", upcomingTitle: "What we’re building next.",
   },
   fr: {
     approach: "Approche", services: "Services", contact: "Contact", kicker: "Équipe logicielle indépendante · Algérie",
@@ -47,6 +78,7 @@ const labels = {
     processText: "Chaque projet commence par une question. Nous clarifions la prochaine étape, puis nous la construisons correctement.", work: "Travailler avec nous ↗",
     what: "Nos services", start: "Commencer une conversation", idea: "Une idée ? Construisons-la.",
     explanation: "Nous comprenons d’abord le problème, fixons les priorités, puis construisons une version claire, testable et améliorable.",
+    upcoming: "À venir", upcomingTitle: "Ce que nous construisons ensuite.",
   },
   ar: {
     approach: "منهجيتنا", services: "خدماتنا", contact: "تواصل معنا", kicker: "فريق برمجي مستقل · الجزائر",
@@ -56,6 +88,7 @@ const labels = {
     processText: "كل مشروع يبدأ بسؤال. نحدد الخطوة التالية بوضوح، ثم نبنيها بطريقة صحيحة.", work: "اعمل معنا ↗",
     what: "ماذا نقدم", start: "ابدأ محادثة", idea: "لديك فكرة؟ لنبنها معًا.",
     explanation: "نفهم المشكلة أولًا، نرتب الأولويات، ثم نبني نسخة واضحة يمكن اختبارها وتطويرها بثقة.",
+    upcoming: "قادم", upcomingTitle: "ما الذي نبنيه بعد ذلك؟",
   },
 } as const;
 
@@ -109,6 +142,7 @@ export default function CncTeamHome() {
             <div className="hidden items-center gap-8 text-sm text-white/55 md:flex">
               <a href="#approach" className="transition-colors hover:text-white">{text.approach}</a>
               <a href="#services" className="transition-colors hover:text-white">{text.services}</a>
+              <a href="#upcoming" className="transition-colors hover:text-white">{text.upcoming}</a>
               <a href="#contact" className="transition-colors hover:text-white">{text.contact}</a>
             </div>
             <div className="flex items-center gap-2">
@@ -192,6 +226,27 @@ export default function CncTeamHome() {
                 </div>
                 <h3 className="text-2xl tracking-tight text-white sm:text-3xl">{service.title}</h3>
                 <p className="mt-4 max-w-sm text-sm leading-7 text-white/45">{service.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="upcoming" className="relative bg-[#090909] px-6 pb-28 pt-16 sm:px-10 md:pb-40">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-14 flex items-end justify-between md:mb-20">
+            <p className="text-xs uppercase tracking-[0.28em] text-white/35">{text.upcoming}</p>
+          </div>
+          <h2 className="cnc-display mb-16 max-w-4xl text-5xl tracking-[-0.04em] sm:text-7xl">{text.upcomingTitle}</h2>
+          <div className="border-t border-white/10">
+            {upcomingProjects.map((project, index) => (
+              <article key={project.name} className="group grid grid-cols-1 gap-4 border-b border-white/10 py-8 transition-colors hover:bg-white/[0.02] sm:grid-cols-[3rem_1fr_auto] sm:items-baseline sm:gap-8 sm:py-10">
+                <span className="text-xs tracking-[0.2em] text-white/25">0{index + 1}</span>
+                <div>
+                  <h3 className="text-2xl tracking-tight text-white sm:text-4xl">{project.name}</h3>
+                  <p className="mt-2 max-w-md text-sm leading-6 text-white/45">{project.blurb[locale]}</p>
+                </div>
+                <span className="self-start rounded-full border border-white/10 px-4 py-1.5 text-xs text-white/50 sm:self-auto">{project.status[locale]}</span>
               </article>
             ))}
           </div>
