@@ -29,35 +29,15 @@ const services = [
 
 type Locale = "en" | "fr" | "ar";
 
-const upcomingProjects: Array<{ name: string; blurb: Record<Locale, string>; status: Record<Locale, string> }> = [
-  {
-    name: "CADbench",
-    blurb: {
-      en: "A web-based viewer and review tool for 3D models.",
-      fr: "Un visualiseur web pour revoir des modèles 3D.",
-      ar: "أداة ويب لعرض ومراجعة النماذج ثلاثية الأبعاد.",
-    },
-    status: { en: "In design", fr: "En conception", ar: "في التصميم" },
+const upcomingProject: { name: string; blurb: Record<Locale, string>; status: Record<Locale, string> } = {
+  name: "Beup",
+  blurb: {
+    en: "A social media app, built around real people and real conversations.",
+    fr: "Une application de réseaux sociaux, conçue autour de vraies personnes et de vraies conversations.",
+    ar: "تطبيق تواصل اجتماعي مبني حول أشخاص حقيقيين ومحادثات حقيقية.",
   },
-  {
-    name: "Sprint OS",
-    blurb: {
-      en: "Internal tooling to run client projects with total clarity.",
-      fr: "Des outils internes pour piloter les projets clients.",
-      ar: "أدوات داخلية لإدارة مشاريع العملاء بوضوح.",
-    },
-    status: { en: "In research", fr: "En étude", ar: "في الدراسة" },
-  },
-  {
-    name: "Atlas SDK",
-    blurb: {
-      en: "A lightweight payments SDK for Algerian businesses.",
-      fr: "Un SDK de paiement léger pour les entreprises algériennes.",
-      ar: "حزمة دفع خفيفة للشركات الجزائرية.",
-    },
-    status: { en: "Planned", fr: "Planifié", ar: "مخطط" },
-  },
-];
+  status: { en: "In design", fr: "En conception", ar: "في التصميم" },
+};
 
 const labels = {
   en: {
@@ -234,21 +214,17 @@ export default function CncTeamHome() {
 
       <section id="upcoming" className="relative bg-[#090909] px-6 pb-28 pt-16 sm:px-10 md:pb-40">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-14 flex items-end justify-between md:mb-20">
-            <p className="text-xs uppercase tracking-[0.28em] text-white/35">{text.upcoming}</p>
+          <div className="mb-14 md:mb-20">
+            <p className="mb-7 text-xs uppercase tracking-[0.28em] text-white/35">{text.upcoming}</p>
           </div>
-          <h2 className="cnc-display mb-16 max-w-4xl text-5xl tracking-[-0.04em] sm:text-7xl">{text.upcomingTitle}</h2>
-          <div className="border-t border-white/10">
-            {upcomingProjects.map((project, index) => (
-              <article key={project.name} className="group grid grid-cols-1 gap-4 border-b border-white/10 py-8 transition-colors hover:bg-white/[0.02] sm:grid-cols-[3rem_1fr_auto] sm:items-baseline sm:gap-8 sm:py-10">
-                <span className="text-xs tracking-[0.2em] text-white/25">0{index + 1}</span>
-                <div>
-                  <h3 className="text-2xl tracking-tight text-white sm:text-4xl">{project.name}</h3>
-                  <p className="mt-2 max-w-md text-sm leading-6 text-white/45">{project.blurb[locale]}</p>
-                </div>
-                <span className="self-start rounded-full border border-white/10 px-4 py-1.5 text-xs text-white/50 sm:self-auto">{project.status[locale]}</span>
-              </article>
-            ))}
+          <div className="border-t border-white/10 pt-12 md:pt-16">
+            <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+              <div>
+                <h2 className="cnc-display text-7xl tracking-[-0.05em] sm:text-8xl lg:text-9xl">{upcomingProject.name}</h2>
+                <p className="mt-6 max-w-md text-base leading-7 text-white/50">{upcomingProject.blurb[locale]}</p>
+              </div>
+              <span className="self-start rounded-full border border-white/10 px-5 py-2 text-sm text-white/60 md:self-auto">{upcomingProject.status[locale]}</span>
+            </div>
           </div>
         </div>
       </section>
