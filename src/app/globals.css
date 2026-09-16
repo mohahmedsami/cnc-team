@@ -124,13 +124,14 @@ video {
 
 .cnc-live-code {
   position: absolute;
-  inset: 10% auto auto 7%;
+  inset: 8% 6% auto 6%;
   margin: 0;
   color: rgba(255, 255, 255, 0.78);
   font-family: var(--font-jetbrains), monospace;
   font-size: clamp(0.58rem, 1.35vw, 1rem);
   line-height: 1.9;
-  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-word;
   text-align: left;
 }
 

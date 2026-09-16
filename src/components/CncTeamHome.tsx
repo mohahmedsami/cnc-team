@@ -163,7 +163,7 @@ export default function CncTeamHome() {
 
       <section className="relative bg-[#090909] px-6 pb-32 sm:px-10 md:pb-48">
         <div className="mx-auto max-w-6xl">
-          <div className="relative aspect-[16/8] overflow-hidden rounded-[2rem] border border-white/10 bg-[#111]">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-[#111] sm:aspect-[16/8]">
             <LiveCode />
             <div className="absolute inset-0 bg-gradient-to-t from-[#090909]/90 via-transparent to-transparent" />
             <div className="absolute inset-x-0 bottom-0 flex flex-col gap-5 p-6 sm:flex-row sm:items-end sm:justify-between sm:p-10">
