@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/data/site";
 import LiveCode from "@/components/LiveCode";
 
@@ -63,11 +63,25 @@ export default function CncTeamHome() {
   const [locale, setLocale] = useState<Locale>("en");
   const isArabic = locale === "ar";
   const text = labels[locale];
+  const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     document.documentElement.lang = locale;
     document.documentElement.dir = isArabic ? "rtl" : "ltr";
   }, [isArabic, locale]);
+
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+    const handleTime = () => {
+      const remaining = video.duration - video.currentTime;
+      if (Number.isFinite(remaining) && remaining > 0 && remaining <= 1.6) {
+        video.playbackRate = 0.25;
+      }
+    };
+    video.addEventListener("timeupdate", handleTime);
+    return () => video.removeEventListener("timeupdate", handleTime);
+  }, []);
 
   return (
     <main id="main-content" dir={isArabic ? "rtl" : "ltr"} className="cnc-home min-h-svh overflow-hidden bg-[#090909] text-white">
@@ -75,6 +89,7 @@ export default function CncTeamHome() {
         <div className="cnc-orb cnc-orb-one" aria-hidden="true" />
         <div className="cnc-orb cnc-orb-two" aria-hidden="true" />
         <video
+          ref={heroVideoRef}
           className="absolute inset-0 h-full w-full object-cover opacity-65 brightness-[1.35] contrast-[1.08] saturate-[1.15] mix-blend-screen"
           src="/cnc-team/videos/cnc-team-hero.mp4"
           muted
