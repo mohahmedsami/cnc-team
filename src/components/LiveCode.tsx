@@ -73,7 +73,7 @@ export default function LiveCode() {
   }, [line, column, mistake]);
 
   return (
-    <pre className="cnc-live-code" aria-label="Live code example">
+    <pre dir="ltr" className="cnc-live-code" aria-label="Live code example">
       {LINES.slice(0, line + 1).map((value, index) => {
         const visible = index === line ? value.slice(0, column) + (mistake ? "x" : "") : value;
         return (

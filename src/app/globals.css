@@ -134,6 +134,8 @@ video {
   word-break: break-word;
   overflow-wrap: anywhere;
   text-align: left;
+  direction: ltr;
+  unicode-bidi: isolate;
   letter-spacing: -0.005em;
   tab-size: 2;
 }
