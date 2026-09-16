@@ -32,9 +32,9 @@ type Locale = "en" | "fr" | "ar";
 const upcomingProject: { name: string; blurb: Record<Locale, string>; status: Record<Locale, string> } = {
   name: "Beup",
   blurb: {
-    en: "A social media app, built around real people and real conversations.",
-    fr: "Une application de réseaux sociaux, conçue autour de vraies personnes et de vraies conversations.",
-    ar: "تطبيق تواصل اجتماعي مبني حول أشخاص حقيقيين ومحادثات حقيقية.",
+    en: "A new-generation social media app. Soon, capture daily moments with the front and back cameras.",
+    fr: "Un réseau social nouvelle génération. Bientôt, créez des moments quotidiens avec les caméras avant et arrière.",
+    ar: "تطبيق تواصل اجتماعي من الجيل الجديد. قريبًا، أنشئ لحظات يومية بالتصوير الأمامي والخلفي.",
   },
   status: { en: "In design", fr: "En conception", ar: "في التصميم" },
 };
