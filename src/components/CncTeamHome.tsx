@@ -177,9 +177,18 @@ export default function CncTeamHome() {
 
       <section className="relative bg-[#090909] px-6 pb-32 sm:px-10 md:pb-48">
         <div className="mx-auto max-w-6xl">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-[#111] sm:aspect-[16/8]">
+          <div className="cnc-code-panel relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 sm:aspect-[16/8]">
+            <div className="absolute inset-x-0 top-0 flex items-center justify-between border-b border-white/[0.06] px-5 py-3.5">
+              <div className="flex items-center gap-1.5" aria-hidden="true">
+                <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+                <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+              </div>
+              <span dir="ltr" className="font-mono text-[11px] tracking-wide text-white/35">workspace.ts</span>
+            </div>
+            <div className="cnc-code-panel-glow" aria-hidden="true" />
             <LiveCode />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#090909]/90 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#090909]/95 via-[#090909]/20 to-transparent" />
             <div className="absolute inset-x-0 bottom-0 flex flex-col gap-5 p-6 sm:flex-row sm:items-end sm:justify-between sm:p-10">
               <div className="max-w-md">
                 <p className="mb-3 text-xs uppercase tracking-[0.24em] text-white/40">{text.process}</p>

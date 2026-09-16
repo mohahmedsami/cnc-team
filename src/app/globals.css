@@ -124,7 +124,7 @@ video {
 
 .cnc-live-code {
   position: absolute;
-  inset: 7% 6% auto 6%;
+  inset: 3.75rem 6% auto 6%;
   margin: 0;
   color: #d8deea;
   font-family: var(--font-jetbrains), ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -146,8 +146,19 @@ video {
 }
 
 @media (min-width: 768px) {
-  .cnc-live-code {
-    inset: 7% auto auto 50%;
+.cnc-code-panel {
+  background: linear-gradient(180deg, #14171d 0%, #0f1116 55%, #0b0d11 100%);
+}
+
+.cnc-code-panel-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(1100px 420px at 72% -12%, rgba(125, 211, 252, 0.07), transparent 62%);
+  pointer-events: none;
+}
+
+.cnc-live-code {
+    inset: 3.75rem auto auto 50%;
     transform: translateX(-50%);
     width: min(64%, 54rem);
   }
