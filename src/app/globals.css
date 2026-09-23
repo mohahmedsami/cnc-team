@@ -40,11 +40,19 @@ video {
 }
 
 .liquid-glass {
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+}
+
+/* backdrop-filter re-blurs the whole backdrop on every scroll frame and is the
+   #1 cause of scroll jank on mobile GPUs. Keep the glass effect on large
+   desktop screens only; phones get the identical look via translucent fills. */
+@media (min-width: 1024px) {
+  .liquid-glass {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
 }
 
 .cnc-display {
@@ -78,7 +86,8 @@ video {
   position: absolute;
   pointer-events: none;
   border-radius: 999px;
-  filter: blur(70px);
+  /* Blur is baked into the radial gradients below — same soft glow,
+     zero per-frame repaint cost during scroll. */
 }
 
 .cnc-orb-one {
@@ -86,7 +95,7 @@ video {
   height: 30rem;
   top: 12%;
   left: 18%;
-  background: rgba(38, 92, 120, 0.16);
+  background: radial-gradient(circle at 50% 50%, rgba(38, 92, 120, 0.20), rgba(38, 92, 120, 0.10) 45%, transparent 72%);
 }
 
 .cnc-orb-two {
@@ -94,7 +103,7 @@ video {
   height: 24rem;
   right: 8%;
   bottom: 10%;
-  background: rgba(88, 52, 108, 0.12);
+  background: radial-gradient(circle at 50% 50%, rgba(88, 52, 108, 0.16), rgba(88, 52, 108, 0.08) 45%, transparent 72%);
 }
 
 .cnc-glow {

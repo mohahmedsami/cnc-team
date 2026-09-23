@@ -1,0 +1,7 @@
+# https://securitytxt.org/
+Contact: mailto:hello@cnc-team.dev
+Encryption: https://keys.openpgp.org
+Preferred-Languages: ar, en, fr
+Canonical: https://mohahmedsami.github.io/cnc-team/.well-known/security.txt
+Policy: https://mohahmedsami.github.io/cnc-team/.well-known/security.txt
+Expires: 2027-09-23T00:00:00.000Z

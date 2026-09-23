@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const LINES = [
   "export async function createWorkspace(input: CreateWorkspaceInput) {",
@@ -35,20 +35,34 @@ export default function LiveCode() {
   const [line, setLine] = useState(0);
   const [column, setColumn] = useState(0);
   const [mistake, setMistake] = useState(false);
+  const [inView, setInView] = useState(false);
+  const rootRef = useRef<HTMLPreElement>(null);
+
+  // Only animate while the code panel is actually visible on screen.
+  useEffect(() => {
+    const node = rootRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver((entries) => {
+      setInView(entries.some((entry) => entry.isIntersecting));
+    });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
+    if (!inView) return;
     const current = LINES[line] ?? "";
     const finished = column >= current.length;
     const previous = current[column - 1] ?? "";
     const typoPoint = line === 1 && column === 18 && !mistake;
     const wobble = [0, 18, -10, 26, -6, 34, 8, -16, 22, -12][(line * 7 + column) % 10];
     const delay = mistake
-      ? 240
+      ? 320
       : finished
         ? (line === LINES.length - 1 ? 3200 : line === 0 ? 1100 : 620 + (line % 2) * 130)
         : typoPoint
-          ? 200
-          : /[({[=;:,]/.test(previous) ? 130 + wobble : /\s/.test(current[column] ?? "") ? 55 + wobble : 78 + wobble;
+          ? 280
+          : /[({[=;:,]/.test(previous) ? 170 + wobble : /\s/.test(current[column] ?? "") ? 110 + wobble : 140 + wobble;
 
     const timer = window.setTimeout(() => {
       if (mistake) {
@@ -70,10 +84,10 @@ export default function LiveCode() {
     }, delay);
 
     return () => window.clearTimeout(timer);
-  }, [line, column, mistake]);
+  }, [line, column, mistake, inView]);
 
   return (
-    <pre dir="ltr" className="cnc-live-code" aria-label="Live code example">
+    <pre ref={rootRef} dir="ltr" className="cnc-live-code" aria-label="Live code example">
       {LINES.slice(0, line + 1).map((value, index) => {
         const visible = index === line ? value.slice(0, column) + (mistake ? "x" : "") : value;
         return (

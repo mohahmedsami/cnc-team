@@ -1,0 +1,6 @@
+# CNC TEAM — public marketing site
+# Allow all crawlers; the site is fully static with no private content.
+User-agent: *
+Allow: /
+
+# No private endpoints exist on this static export.

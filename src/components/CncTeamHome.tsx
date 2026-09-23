@@ -29,6 +29,21 @@ const services = [
 
 type Locale = "en" | "fr" | "ar";
 
+// Only mount the full-screen background videos on devices that can afford them.
+// Phones avoid a ~30 MB video download + full-screen decode; users who prefer
+// reduced motion get the quiet static design instead.
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia(query);
+    setMatches(mql.matches);
+    const onChange = () => setMatches(mql.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, [query]);
+  return matches;
+}
+
 const upcomingProject: { name: string; blurb: Record<Locale, string>; status: Record<Locale, string> } = {
   name: "Beup",
   blurb: {
@@ -77,6 +92,8 @@ export default function CncTeamHome() {
   const isArabic = locale === "ar";
   const text = labels[locale];
   const heroVideoRef = useRef<HTMLVideoElement>(null);
+  const showHeroVideo = useMediaQuery("(min-width: 640px) and (prefers-reduced-motion: no-preference)");
+  const showContactVideo = useMediaQuery("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
 
   useEffect(() => {
     document.documentElement.lang = locale;
@@ -101,17 +118,19 @@ export default function CncTeamHome() {
       <section className="relative flex min-h-svh flex-col">
         <div className="cnc-orb cnc-orb-one" aria-hidden="true" />
         <div className="cnc-orb cnc-orb-two" aria-hidden="true" />
-        <video
-          ref={heroVideoRef}
-          className="absolute inset-0 h-full w-full object-cover opacity-65 brightness-[1.35] contrast-[1.08] saturate-[1.15] mix-blend-screen"
-          src="/cnc-team/videos/cnc-team-hero.mp4"
-          muted
-          autoPlay
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-          tabIndex={-1}
-        />
+        {showHeroVideo && (
+          <video
+            ref={heroVideoRef}
+            className="absolute inset-0 h-full w-full object-cover opacity-70"
+            src="/cnc-team/videos/cnc-team-hero.mp4"
+            muted
+            autoPlay
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+            tabIndex={-1}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-[#090909]/10 via-[#090909]/38 to-[#090909]/85" aria-hidden="true" />
 
         <header className="relative z-10 px-5 py-5 sm:px-8 sm:py-8">
@@ -239,16 +258,18 @@ export default function CncTeamHome() {
       </section>
 
       <section id="contact" className="relative overflow-hidden border-t border-white/10 bg-[#090909] px-6 pb-24 pt-32 sm:px-10 md:pb-32 md:pt-44">
-        <video
-          className="absolute inset-0 h-full w-full object-cover opacity-35"
-          src="/cnc-team/videos/cnc-team-contact.mp4"
-          muted
-          autoPlay
-          loop
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-        />
+        {showContactVideo && (
+          <video
+            className="absolute inset-0 h-full w-full object-cover opacity-35"
+            src="/cnc-team/videos/cnc-team-contact.mp4"
+            muted
+            autoPlay
+            loop
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-b from-[#090909]/65 via-[#090909]/55 to-[#090909]/95" aria-hidden="true" />
         <div className="cnc-glow cnc-glow-center" aria-hidden="true" />
         <div className="relative z-10 mx-auto max-w-6xl">
