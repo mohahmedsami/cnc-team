@@ -36,6 +36,7 @@ export default function LiveCode() {
   const [column, setColumn] = useState(0);
   const [mistake, setMistake] = useState(false);
   const [inView, setInView] = useState(false);
+  const [scrolling, setScrolling] = useState(false);
   const rootRef = useRef<HTMLPreElement>(null);
 
   // Only animate while the code panel is actually visible on screen.
@@ -49,8 +50,20 @@ export default function LiveCode() {
     return () => observer.disconnect();
   }, []);
 
+  // Freeze the typing loop while the user is scrolling (class toggled by
+  // CncTeamHome). Repainting text per-keystroke on top of a scroll gesture
+  // is exactly what makes low-end phones stutter.
   useEffect(() => {
-    if (!inView) return;
+    const root = document.documentElement;
+    const update = () => setScrolling(root.classList.contains("cnc-scrolling"));
+    update();
+    const observer = new MutationObserver(update);
+    observer.observe(root, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!inView || scrolling) return;
     const current = LINES[line] ?? "";
     const finished = column >= current.length;
     const previous = current[column - 1] ?? "";
@@ -84,14 +97,14 @@ export default function LiveCode() {
     }, delay);
 
     return () => window.clearTimeout(timer);
-  }, [line, column, mistake, inView]);
+  }, [line, column, mistake, inView, scrolling]);
 
   return (
     <pre ref={rootRef} dir="ltr" className="cnc-live-code" aria-label="Live code example">
       {LINES.slice(0, line + 1).map((value, index) => {
         const visible = index === line ? value.slice(0, column) + (mistake ? "x" : "") : value;
         return (
-          <code key={`${index}-${visible}`} className="cnc-code-line">
+          <code key={index} className="cnc-code-line">
             <span className="cnc-code-number">{String(index + 1).padStart(2, "0")}</span>
             <span>{highlight(visible)}</span>
             {index === line && <span className="cnc-code-caret" aria-hidden="true" />}

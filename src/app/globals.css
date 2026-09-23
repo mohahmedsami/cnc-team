@@ -7,8 +7,15 @@
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 1.5rem;
+}
+
+/* Smooth anchor scrolling is a desktop nicety; on phones it fights the
+   native gesture and adds stutter. Phones jump instantly. */
+@media (min-width: 1024px) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @theme inline {
@@ -25,7 +32,29 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  overflow-x: clip; /* clip keeps the compositor fast path (no scroll container) */
   overscroll-behavior-x: none;
+}
+
+/* ---- Scroll smoothness engineering ----
+   1. While the finger/wheel is moving, freeze every CSS animation so the
+      compositor isn't repainting infinite animations on top of scroll —
+      the #1 cause of stutter on low-end phones. Animations resume 120ms
+      after the scroll stops. The class is toggled by CncTeamHome.
+   2. Skip painting sections that are far off-screen with content-visibility.
+      The page is ~5 screens tall; this cuts scroll paint work dramatically
+      in both directions. contain-intrinsic-size keeps the scrollbar stable. */
+html.cnc-scrolling *,
+html.cnc-scrolling *::before,
+html.cnc-scrolling *::after {
+  animation-play-state: paused !important;
+}
+
+main.cnc-home > section,
+main.cnc-home > footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;     /* older browsers: fixed estimate */
+  contain-intrinsic-size: auto 900px; /* modern: remember rendered size   */
 }
 
 video {

@@ -113,6 +113,27 @@ export default function CncTeamHome() {
     return () => video.removeEventListener("timeupdate", handleTime);
   }, []);
 
+  // Tag the document while the user is actively scrolling so globals.css can
+  // pause every infinite animation (caret, glows, …) — they otherwise compete
+  // with the compositor for frames and cause stutter on low-end phones.
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const onScroll = () => {
+      document.documentElement.classList.add("cnc-scrolling");
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(
+        () => document.documentElement.classList.remove("cnc-scrolling"),
+        120,
+      );
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (timer) clearTimeout(timer);
+      document.documentElement.classList.remove("cnc-scrolling");
+    };
+  }, []);
+
   return (
     <main id="main-content" dir={isArabic ? "rtl" : "ltr"} className="cnc-home min-h-svh overflow-hidden bg-[#090909] text-white">
       <section className="relative flex min-h-svh flex-col">
