@@ -29,9 +29,12 @@ const services = [
 
 type Locale = "en" | "fr" | "ar";
 
-// Only mount the full-screen background videos on devices that can afford them.
-// Phones avoid a ~30 MB video download + full-screen decode; users who prefer
-// reduced motion get the quiet static design instead.
+// Only mount the full-screen background videos. Two notes:
+//  - They are shown on ALL devices (desktop, tablet and phone) per the
+//    client's decision — the earlier phone-heavy complaints were caused by
+//    backdrop-filters and the typing animation, which are fixed; videos are
+//    composited layers and do not force scroll repaints.
+//  - Visitors who enabled "reduce motion" in their OS still get no video. */
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(false);
   useEffect(() => {
@@ -92,8 +95,10 @@ export default function CncTeamHome() {
   const isArabic = locale === "ar";
   const text = labels[locale];
   const heroVideoRef = useRef<HTMLVideoElement>(null);
-  const showHeroVideo = useMediaQuery("(min-width: 640px) and (prefers-reduced-motion: no-preference)");
-  const showContactVideo = useMediaQuery("(min-width: 1024px) and (prefers-reduced-motion: no-preference)");
+  // Show both background videos on EVERY device. The only guard left is the
+  // OS-level "reduce motion" preference, respected for accessibility.
+  const showHeroVideo = useMediaQuery("(prefers-reduced-motion: no-preference)");
+  const showContactVideo = useMediaQuery("(prefers-reduced-motion: no-preference)");
 
   useEffect(() => {
     document.documentElement.lang = locale;
